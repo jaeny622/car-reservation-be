@@ -1,5 +1,7 @@
-package com.study.demo;
+package com.study.demo.comment.entity;
 
+import com.study.demo.user.entity.User;
+import com.study.demo.video.entity.Video;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,12 +22,12 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "video_id", nullable = false)
-    private com.study.demo.Video video;
+    private Video video;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "owner", nullable = false)
-    private com.study.demo.User owner;
+    private User owner;
 
     @Column(name = "contents", nullable = false, length = 2000)
     private String contents;
