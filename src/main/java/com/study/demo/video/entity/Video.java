@@ -1,8 +1,13 @@
 package com.study.demo.video.entity;
 
-import com.study.demo.domain.User;
+import com.study.demo.user.entity.User;
+import com.study.demo.util.BaseTime;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -10,8 +15,11 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name = "\"Video\"")
-public class Video {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "VIDEO")
+public class Video extends BaseTime {
     @Id
     @Column(name = "video_id", nullable = false, length = 36)
     @GeneratedValue(strategy=GenerationType.UUID)
@@ -29,21 +37,28 @@ public class Video {
     @Column(name = "description", length = 2000)
     private String description;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDate createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private LocalDate updatedAt;
-
     @Column(name = "hashtags", length = 2000)
     private String hashtags;
 
-    @Column(name = "\"views\"", nullable = false)
+    @Column(name = "views", nullable = false)
     private Long views;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "owner", nullable = false)
-    private User owner;
+    private String owner;
 
+    public Video(String title, String fileUrl, String thumbUrl, String description, String tags, String owner) {
+        this.title = title;
+        this.fileUrl = fileUrl;
+        this.thumbUrl = thumbUrl;
+        this.description = description;
+        this.hashtags = tags;
+        this.owner = owner;
+        this.views = 0L;
+    }
+
+    @Override
+    public String toString() {
+        return getVideoId() + ',' + getTitle()+','+getFileUrl()+','+getThumbUrl()+','+getDescription()+','+getOwner()+','+getHashtags() + ','+getViews();
+    }
 }
