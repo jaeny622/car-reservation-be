@@ -1,20 +1,20 @@
-package com.study.demo;
+package com.study.demo.video.entity;
 
+import com.study.demo.domain.User;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "\"Video\"")
 public class Video {
     @Id
     @Column(name = "video_id", nullable = false, length = 36)
+    @GeneratedValue(strategy=GenerationType.UUID)
     private String videoId;
 
     @Column(name = "title", nullable = false, length = 50)
