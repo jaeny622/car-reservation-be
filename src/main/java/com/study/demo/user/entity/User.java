@@ -1,16 +1,14 @@
-package com.study.demo;
+package com.study.demo.user.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "\"User\"")
+@Table(name = "USERINFO")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @Column(name = "user_id", nullable = false, length = 50)
@@ -25,4 +23,8 @@ public class User {
     @Column(name = "thumb_url", length = 1000)
     private String thumbUrl;
 
+    @Override
+    public String toString() {
+        return getThumbUrl().isEmpty() ?  getUserId() + "," + getPassword() + "," + getName() : getUserId() + "," + getPassword() + "," + getName() + "," + getThumbUrl();
+    }
 }
