@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class VideoController {
@@ -26,6 +27,13 @@ public class VideoController {
         System.out.println("videos" + videos);
 
         return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
+    }
+
+    @GetMapping("/video/{videoId}")
+    public ResponseEntity<Video> getVideo(@PathVariable(value="videoId") String videoId){
+        Optional<Video> video = videoService.findVideoById(videoId);
+        if(!video.isPresent()) return new ResponseEntity<>(HttpStatus.OK);
+        else return new ResponseEntity<Video>(video.get(), HttpStatus.OK);
     }
 
     @PostMapping("/upload-video")
