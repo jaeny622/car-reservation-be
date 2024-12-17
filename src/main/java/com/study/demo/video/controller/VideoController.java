@@ -44,6 +44,13 @@ public class VideoController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("/update-video")
+    public ResponseEntity<String> updateVideo( @RequestBody Video video){
+        System.out.println("video"+video.toString());
+        videoService.updateVideo(video);
+        return new ResponseEntity<String>("성공",HttpStatus.OK);
+    }
+
     @PostMapping("/video/{videoId}")
     public ResponseEntity<String> deleteVideo(@PathVariable(value = "videoId") String videoId){
         System.out.println("videoId"+videoId);

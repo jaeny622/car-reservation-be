@@ -1,13 +1,12 @@
 package com.study.demo.video.entity;
 
-import com.study.demo.user.entity.User;
 import com.study.demo.util.BaseTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -18,6 +17,8 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+// 성능 이슈 발생 가능성 있음
+// @DynamicUpdate
 @Table(name = "VIDEO")
 public class Video extends BaseTime {
     @Id
