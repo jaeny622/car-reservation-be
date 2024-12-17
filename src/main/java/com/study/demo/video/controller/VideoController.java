@@ -1,5 +1,6 @@
 package com.study.demo.video.controller;
 
+import com.study.demo.video.dto.KeywordDto;
 import com.study.demo.video.dto.VideoDto;
 import com.study.demo.video.entity.Video;
 import com.study.demo.video.service.VideoService;
@@ -23,9 +24,6 @@ public class VideoController {
     @GetMapping("/videos")
     public ResponseEntity<List<Video>> getAllVideos(){
         List<Video> videos = videoService.findVideos();
-
-        System.out.println("videos" + videos);
-
         return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
     }
 
@@ -38,24 +36,25 @@ public class VideoController {
 
     @PostMapping("/upload-video")
     public ResponseEntity<Video> uploadVideo(@RequestBody VideoDto video){
-        System.out.println("video"+video.toString());
         videoService.uploadVideo(video);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/update-video")
     public ResponseEntity<String> updateVideo( @RequestBody Video video){
-        System.out.println("video"+video.toString());
         videoService.updateVideo(video);
         return new ResponseEntity<String>("성공",HttpStatus.OK);
     }
 
     @PostMapping("/video/{videoId}")
     public ResponseEntity<String> deleteVideo(@PathVariable(value = "videoId") String videoId){
-        System.out.println("videoId"+videoId);
-
         videoService.deleteVideo(videoId);
         return new ResponseEntity<String>("성공",HttpStatus.OK);
+    }
+
+    @GetMapping("/video")
+    public ResponseEntity<List<Video>> getVideoByKeyword(@RequestBody KeywordDto keyword){
+        List<Video> videos = videoService.findVideosByTitle(keyword.getKeyword());
+        return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
     }
 }

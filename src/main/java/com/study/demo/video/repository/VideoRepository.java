@@ -8,5 +8,6 @@ import java.util.List;
 
 // DAO 와 같은 역할
 public interface VideoRepository extends JpaRepository<Video, String> {
-    List<Video> findByTitle(String title);
+    // Containing 을 붙이면 LIKE 연산 가능
+    List<Video> findByTitleContaining(String title);
 }

@@ -42,6 +42,7 @@ public class VideoService {
     }
 
     public List<Video> findVideosByTitle(String title){
-        return videoRepository.findByTitle(title);
+        System.out.println("title"+title);
+        return videoRepository.findByTitleContaining(title);
     }
 }
