@@ -1,11 +1,7 @@
 package com.study.demo.comment.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter
 public class CommentDto {
 }

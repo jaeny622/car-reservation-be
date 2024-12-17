@@ -3,9 +3,9 @@ package com.study.demo.video.service;
 import com.study.demo.video.dto.VideoDto;
 import com.study.demo.video.entity.Video;
 import com.study.demo.video.repository.VideoRepository;
-import jakarta.persistence.PrePersist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +29,7 @@ public class VideoService {
         videoRepository.save(videoEntity);
     }
 
+    @Transactional
     public void updateVideo(Video video){
         Optional<Video> videoTmp = videoRepository.findById(video.getVideoId());
         if(videoTmp.isPresent()){
@@ -41,6 +42,7 @@ public class VideoService {
     }
 
     public List<Video> findVideosByTitle(String title){
-        return videoRepository.findByTitle(title);
+        System.out.println("title"+title);
+        return videoRepository.findByTitleContaining(title);
     }
 }
