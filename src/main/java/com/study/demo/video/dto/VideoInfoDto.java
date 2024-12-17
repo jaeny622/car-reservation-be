@@ -6,16 +6,18 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class VideoDto {
+public class VideoInfoDto {
+    private String id;
     private String title;
     private String fileUrl;
     private String thumbUrl;
     private String description;
     private String owner;
     private String tags;
+    private String updatedAt;
 
     @Override
     public String toString() {
-        return getTitle()+','+getFileUrl()+','+getThumbUrl()+','+getDescription()+','+getOwner()+','+getTags();
+        return getId() + ',' + getTitle() + ',' + getFileUrl() + ',' + getThumbUrl() + ',' + getDescription() + ',' + getOwner() + ',' + getTags() + ',' + getUpdatedAt();
     }
 }
