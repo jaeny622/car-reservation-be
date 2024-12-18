@@ -45,4 +45,14 @@ public class UserService {
 
         return user;
     }
+
+    // 나의 정보 조회
+    public UserInfo findMyProfile(String id){
+        UserInfo user = userInfoRepository.findById(id).orElse(null);
+        if(user == null){
+            return null;
+        }
+
+        return user;
+    }
 }
