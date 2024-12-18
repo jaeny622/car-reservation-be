@@ -4,14 +4,11 @@ import com.study.demo.video.dto.KeywordDto;
 import com.study.demo.video.dto.VideoDto;
 import com.study.demo.video.entity.Video;
 import com.study.demo.video.service.VideoService;
-import jakarta.websocket.server.PathParam;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
