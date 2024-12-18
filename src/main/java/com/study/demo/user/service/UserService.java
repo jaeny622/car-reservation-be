@@ -1,11 +1,10 @@
-package com.study.demo.user;
+package com.study.demo.user.service;
 
 import com.study.demo.user.dto.JoinReq;
 import com.study.demo.user.dto.LoginReq;
 import com.study.demo.user.entity.Userinfo;
 import com.study.demo.user.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 @Service
