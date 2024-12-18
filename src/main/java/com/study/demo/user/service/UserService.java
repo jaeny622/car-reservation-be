@@ -1,14 +1,16 @@
 package com.study.demo.user.service;
 
+import com.study.demo.user.ColorCode;
 import com.study.demo.user.dto.JoinReq;
 import com.study.demo.user.dto.LoginReq;
-import com.study.demo.user.entity.Userinfo;
+import com.study.demo.user.entity.UserInfo;
 import com.study.demo.user.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+    ColorCode[] colors = ColorCode.values();
     @Autowired
     private UserInfoRepository userInfoRepository;
 
@@ -17,14 +19,21 @@ public class UserService {
         return userInfoRepository.existsById(id);
     }
 
+    // 로그인 닉네임 중복 체크
+    public boolean checkNicknameDuplication(String nickName){
+        return userInfoRepository.existsByNickname(nickName);
+    }
+
     // 회원가입
     public void join(JoinReq req){
-        userInfoRepository.save(req.toEntity());
+        Long count = userInfoRepository.count();
+        System.out.println("count"+count+ colors[count.intValue()].getValue());
+        userInfoRepository.save(req.toEntity(colors[count.intValue()].getValue()));
     }
 
     // 로그인
-    public Userinfo login(LoginReq req){
-        Userinfo user = userInfoRepository.findById(req.getId()).orElse(null);
+    public UserInfo login(LoginReq req){
+        UserInfo user = userInfoRepository.findById(req.getId()).orElse(null);
 
         if(user == null){
             return null;

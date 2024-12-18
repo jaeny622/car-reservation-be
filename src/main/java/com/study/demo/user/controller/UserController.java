@@ -18,7 +18,22 @@ public class UserController {
 
     @PostMapping("/join")
     public Response<?> join(@RequestBody JoinReq req) {
+        boolean duplicationById = userService.checkIdDuplication(req.getId());
+        boolean duplicationByNickname = userService.checkNicknameDuplication(req.getNickName());
+        if(duplicationById) {
+            System.out.println(Response.fail("중복된 ID 입니다."));
+           return Response.fail("중복된 ID 입니다.");
+        }
+
+        if(duplicationByNickname) {
+            System.out.println(Response.fail("중복된 Nickname 입니다."));
+            return Response.fail("중복된 Nickname 입니다.");
+        }
+
         userService.join(req);
+
+        System.out.println(Response.success("join success"));
+
         return Response.success("join success");
     }
 

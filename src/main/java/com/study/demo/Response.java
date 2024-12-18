@@ -13,4 +13,8 @@ public record Response<T>(
     public static <T> Response<T> created(@Nullable T data) {
         return new Response<>("success",data);
     }
+
+    public static <T> Response<T> fail(@Nullable T data) {
+        return new Response<>("fail",data);
+    }
 }

@@ -1,6 +1,6 @@
 package com.study.demo;
 
-import com.study.demo.user.entity.Userinfo;
+import com.study.demo.user.entity.UserInfo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -35,6 +35,6 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "USER_ID", nullable = false)
-    private Userinfo user;
+    private UserInfo user;
 
 }

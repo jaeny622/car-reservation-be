@@ -1,6 +1,7 @@
 package com.study.demo.user.dto;
 
-import com.study.demo.user.entity.Userinfo;
+import com.study.demo.user.ColorCode;
+import com.study.demo.user.entity.UserInfo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +14,7 @@ public class JoinReq {
     private String password;
     private String nickName;
 
-    public Userinfo toEntity(){
-        return Userinfo.builder().id(id).password(password).nickname(nickName).build();
+    public UserInfo toEntity(String colorCode) {
+        return UserInfo.builder().id(id).password(password).nickname(nickName).colorCode(colorCode).build();
     }
 }

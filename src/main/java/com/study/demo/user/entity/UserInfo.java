@@ -5,16 +5,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "USERINFO")
-public class Userinfo {
+public class UserInfo {
     @Id
     @Size(max = 50)
     @Column(name = "ID", nullable = false, length = 50)
