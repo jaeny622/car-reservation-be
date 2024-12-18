@@ -1,11 +1,10 @@
-package com.study.demo;
+package com.study.demo.reservation.entity;
 
 import com.study.demo.user.entity.UserInfo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -14,6 +13,9 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "RESERVATION")
 public class Reservation {
     @Id
