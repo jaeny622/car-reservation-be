@@ -3,8 +3,11 @@ package com.study.demo.user.controller;
 import com.study.demo.Response;
 import com.study.demo.user.dto.JoinReq;
 import com.study.demo.user.dto.LoginReq;
+import com.study.demo.user.entity.UserInfo;
 import com.study.demo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,36 +18,35 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/join")
-    public Response<?> join(@RequestBody JoinReq req) {
+    public ResponseEntity<?> join(@RequestBody JoinReq req) {
         boolean duplicationById = userService.checkIdDuplication(req.getId());
         boolean duplicationByNickname = userService.checkNicknameDuplication(req.getNickName());
         if(duplicationById) {
-            System.out.println(Response.fail("중복된 ID 입니다."));
-           return Response.fail("중복된 ID 입니다.");
+            return new ResponseEntity<>(Response.fail("중복된 ID 입니다."), HttpStatus.OK);
         }
 
         if(duplicationByNickname) {
-            System.out.println(Response.fail("중복된 Nickname 입니다."));
-            return Response.fail("중복된 Nickname 입니다.");
+            return new ResponseEntity<>(Response.fail("중복된 Nickname 입니다."), HttpStatus.OK);
         }
 
         userService.join(req);
 
-        System.out.println(Response.success("join success"));
-
-        return Response.success("join success");
+        return new ResponseEntity<>(Response.success("join success"), HttpStatus.OK);
     }
 
     @PostMapping("/login")
-    public Response<?> login(@RequestBody LoginReq req) {
-        userService.login(req);
-        return Response.success("login success");
+    public ResponseEntity<?> login(@RequestBody LoginReq req) {
+        UserInfo user = userService.login(req);
+        if(user == null){
+            return new ResponseEntity<>(Response.fail("아이디 또는 비밀번호가 일치하지 않습니다."),HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(Response.success("login success"),HttpStatus.OK);
     }
 
     @GetMapping("/user/{id}")
-    public Response<?> getUser(@PathVariable String id) {
-        userService.findMyProfile(id);
-        return Response.success("get user success");
+    public ResponseEntity<?> getUser(@PathVariable String id) {
+        UserInfo user = userService.findMyProfile(id);
+        return new ResponseEntity<>(Response.success(user),HttpStatus.OK);
     }
 
 }

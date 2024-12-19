@@ -5,10 +5,10 @@ import com.study.demo.reservation.dto.ReservationReq;
 import com.study.demo.reservation.entity.Reservation;
 import com.study.demo.reservation.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/oh-bros")
@@ -17,31 +17,31 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @GetMapping("/reservations")
-    public List<Reservation> getReservations() {
-        return reservationService.findAllReservations();
+    public ResponseEntity<?> getReservations() {
+        return new ResponseEntity<>(Response.success(reservationService.findAllReservations()), HttpStatus.OK);
     }
 
     @GetMapping("/reservation/{id}")
-    public Reservation getReservation(@PathVariable String id) {
-        return reservationService.findOneReservation(id);
+    public ResponseEntity<?> getReservation(@PathVariable String id) {
+        return new ResponseEntity<>(Response.success(reservationService.findOneReservation(id)),HttpStatus.OK);
     }
 
     @PostMapping("/reservation")
-    public Response<?> createReservation(@RequestBody  ReservationReq req) {
+    public ResponseEntity<?> createReservation(@RequestBody  ReservationReq req) {
         reservationService.saveReservation(req);
-        return Response.created("/oh-bros/reservations/" + req.getId());
+        return new ResponseEntity<>(Response.created("reservation 생성 완료"),HttpStatus.CREATED);
     }
 
     @PutMapping("/reservation/{id}")
-    public Response<?> updateReservation(@RequestBody ReservationReq req, @PathVariable String id) {
-        reservationService.updateReservation(req,id);
-        return Response.success("/oh-bros/reservation/" + id);
+    public ResponseEntity<?> updateReservation(@RequestBody ReservationReq req, @PathVariable String id) {
+        Reservation reservation = reservationService.updateReservation(req,id);
+        return new ResponseEntity<>(reservation == null ? Response.fail("저장에 실패했습니다.") : Response.success("/oh-bros/reservation/" + id), HttpStatus.OK);
     }
 
     @DeleteMapping("/reservation/{id}")
-    public Response<?> deleteReservation(@PathVariable String id) {
+    public ResponseEntity<?> deleteReservation(@PathVariable String id) {
         reservationService.deleteReservation(id);
-        return Response.success("/oh-bros/reservation/" + id);
+        return new ResponseEntity<>(Response.success("/oh-bros/reservation/" + id), HttpStatus.OK);
     }
 
 }
