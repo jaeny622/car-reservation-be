@@ -21,18 +21,23 @@ public class ReservationService {
         return reservationRepository.findById(id).orElse(null);
     }
 
-    public Reservation saveReservation(ReservationReq req) {
+    public void saveReservation(ReservationReq req) {
         reservationRepository.save(req.toEntity());
-        return reservationRepository.findById(req.getId()).orElse(null);
     }
 
-    public Reservation updateReservation(ReservationReq req,String id) {
+    public Reservation updateReservation(ReservationReq req, String id) {
         Reservation reservation = reservationRepository.findById(id).orElse(null);
+
         if(reservation == null) {
             return null;
         }
-        reservationRepository.save(req.toEntity());
-        return reservationRepository.findById(req.getId()).orElse(null);
+
+        if(!reservation.getUserId().equals(req.getUserId())){
+            return null;
+        }
+
+        reservationRepository.save(req.toUpdateEntity(id));
+        return reservationRepository.findById(id).orElse(null);
     }
 
     public String deleteReservation(String id) {

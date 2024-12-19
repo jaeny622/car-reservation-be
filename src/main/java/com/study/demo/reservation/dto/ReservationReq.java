@@ -8,22 +8,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class ReservationReq {
-    private String id;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private String userId;
     private String title;
 
-    private UserInfo toUserEntity(){
-        return UserInfo.builder().id(userId).build();
-    }
 
     public Reservation toEntity(){
-        return Reservation.builder().id(id).startDate(startDate).endDate(endDate).user(toUserEntity()).title(title).build();
+        return Reservation.builder().startDate(startDate).endDate(endDate).userId(userId).title(title).build();
+    }
+
+    public Reservation toUpdateEntity(String reservationId){
+        return Reservation.builder().id(reservationId).startDate(startDate).endDate(endDate).userId(userId).title(title).build();
     }
 }

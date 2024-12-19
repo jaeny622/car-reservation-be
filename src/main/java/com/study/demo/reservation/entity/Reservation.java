@@ -8,7 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,6 +21,7 @@ public class Reservation {
     @Id
     @Size(max = 36)
     @Column(name = "ID", nullable = false, length = 36)
+    @GeneratedValue(strategy=GenerationType.UUID)
     private String id;
 
     @Size(max = 100)
@@ -28,15 +29,13 @@ public class Reservation {
     private String title;
 
     @Column(name = "START_DATE")
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 
     @Column(name = "END_DATE")
-    private LocalDate endDate;
+    private LocalDateTime endDate;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "USER_ID", nullable = false)
-    private UserInfo user;
+    private String userId;
 
 }
